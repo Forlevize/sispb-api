@@ -1,0 +1,17 @@
+# Use a imagem oficial do PHP com Apache (ajuste a versão, se necessário)
+FROM php:8.1-apache
+
+# Instale a extensão PDO MySQL (necessária para conexão com o banco de dados)
+RUN docker-php-ext-install pdo pdo_mysql
+
+# Copie os arquivos da sua aplicação para o diretório padrão do Apache
+COPY . /var/www/html
+
+# Habilite o mod_rewrite, se necessário
+RUN a2enmod rewrite
+
+# Exponha a porta 80
+EXPOSE 80
+
+# Defina o comando padrão para iniciar o Apache
+CMD ["apache2-foreground"]
