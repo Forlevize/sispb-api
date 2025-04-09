@@ -1,17 +1,17 @@
 # Usa a imagem oficial do PHP 8.1 com Apache
 FROM php:8.1-apache
 
-# Instala as extensões necessárias (por exemplo, PDO para MySQL)
-RUN docker-php-ext-install pdo pdo_mysql
+# Instala a extensão PDO para PostgreSQL, já que você está conectando ao Supabase
+RUN docker-php-ext-install pdo pdo_pgsql
 
-# Copia o conteúdo da pasta "api" (que contém config, models, etc.) para o diretório do Apache
+# Copia o conteúdo da pasta "api" (que contém sua aplicação PHP) para o diretório padrão do Apache
 COPY api/ /var/www/html/
 
-# Habilita o mod_rewrite para URLs amigáveis (se necessário)
+# Habilita o mod_rewrite para URLs amigáveis, se necessário
 RUN a2enmod rewrite
 
-# Expondo a porta 80 para o servidor
+# Expõe a porta 80, que é a porta padrão do Apache
 EXPOSE 80
 
-# Comando para iniciar o Apache em primeiro plano
+# Inicia o Apache em primeiro plano
 CMD ["apache2-foreground"]
