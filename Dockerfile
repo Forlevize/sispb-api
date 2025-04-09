@@ -1,4 +1,4 @@
-FROM php:8.5-apache
+FROM php:8.1-apache
 
 # Instala as dependências necessárias para PostgreSQL
 RUN apt-get update && apt-get install -y libpq-dev
